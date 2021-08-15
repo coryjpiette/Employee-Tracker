@@ -95,23 +95,23 @@ function addEmployee() {
         {
             name: "first_name",
             type: "input",
-            message: "New Employee First Name: "
+            message: "new employee first name: "
         },
         {
             name: "last_name",
             type: "input",
-            message: "New Employee Last Name: "
+            message: "new employee last name: "
         },
         {
             name: "role",
             type: "list",
-            message: "What is their role?",
+            message: "Please select new employee role.",
             choices: selectRole()
         },
         {
             name: "manager",
             type: "list",
-            message: "Who is their manager?",
+            message: "Please select new employee manager.",
             choices: selectManager()
         }
     ])
@@ -167,7 +167,7 @@ function addDepartment()
       {
         name: "department",
         type: "input",
-        message: "Enter the new department name: "
+        message: "Please enter new department name. "
 
       }
     ])
@@ -186,4 +186,36 @@ function addDepartment()
   
       })
   }
+}
+
+function addRole()
+{
+  db.query('SELECT role.title AS selectedTitle, role.salary AS selectedSalary FROM role',function (err,res)
+  {
+    inquirer.prompt([
+      {
+        name: "selectedTitle",
+        type: "input",
+        message: "Please enter employee role: "
+      },
+      {
+        name: "selectedSalary",
+        type: "input",
+        message: "Please enter role salary: "
+      }
+    ]).then(function (res)
+    {
+      db.query("INSERT INTO role SET ?",
+        {
+          title: res.selectedTitle,
+          salary: res.selectedSalary,
+        },
+        function (err)
+        {
+          console.table(res)
+          initPrompt()
+        }
+      )
+    })
+  })
 }
