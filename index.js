@@ -69,3 +69,30 @@ function initPrompt()
   }
 })
 }
+
+function viewDepartments()
+{
+  db.query('SELECT * FROM department',function (err,results)
+  {
+    console.table(results);
+    initPrompt()
+  });
+}
+// ! Working
+function viewRoles()
+{
+  db.query('SELECT * FROM role',function (err,results)
+  {
+    console.table(results);
+    initPrompt()
+  });
+}
+// ! Working
+function viewEmployees()
+{
+  db.query('SELECT * FROM employee',function (err,results)
+  {
+    console.table(results);
+    initPrompt()
+  });
+}
