@@ -143,7 +143,7 @@ function selectRole() {
 
     return allRoles;
 }
-// ! Working
+
 // making array of all managers
 function selectManager() {
     db.query('SELECT first_name, last_name FROM employee WHERE manager_id IS NULL', function (err, res) {
@@ -225,8 +225,6 @@ function updateEmployee() {
                     return allEmployees
                 },
             },
-
-
             {
                 name: "role",
                 type: 'list',
@@ -247,5 +245,5 @@ function updateEmployee() {
     });
 }
 
-
+initPrompt()
 

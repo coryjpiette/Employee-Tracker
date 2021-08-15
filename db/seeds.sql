@@ -12,7 +12,7 @@ VALUES (01, "Salesperson", 50000.00, 1),
   (05, "Manager", 75000.00, 5);
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES (001, "Mr.", "Manager", 05, NULL),
+VALUES (001, "JohnQ", "Public", 05, NULL),
   (002, "Cory", "Piette", 05, NULL),
   (003, "Bob", "Smith", 01, 001),
   (004, "Joe", "Schmo", 04, 002),
