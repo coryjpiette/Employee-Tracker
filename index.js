@@ -38,7 +38,7 @@ function initPrompt() {
                 "Add Department"
             ]
         }
-}
+
 
 ]).then(function (data) {
             switch (data.choice) {
@@ -144,3 +144,46 @@ function selectRole()
       allRoles.push(res[i].title)
     }
   })
+
+  return allRoles;
+}
+// ! Working
+// making array of all managers
+function selectManager()
+{
+  db.query('SELECT first_name, last_name FROM employee WHERE manager_id IS NULL',function (err,res)
+  {
+    for (var i = 0; i < res.length; i++) {
+      allManagers.push(res[i].first_name)
+    }
+  })
+  return allManagers;
+}
+
+function addDepartment()
+{
+  {
+    inquirer.prompt([
+      {
+        name: "department",
+        type: "input",
+        message: "Enter the new department name: "
+
+      }
+    ])
+      .then(function (data)
+      {
+
+        db.query('INSERT INTO department SET ?',
+          {
+            name: data.department,
+          },function (err)
+        {
+          console.table(data)
+          initPrompt()
+        })
+  
+  
+      })
+  }
+}
