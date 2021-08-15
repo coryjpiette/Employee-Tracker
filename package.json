@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coryjpiette/employee-tracker.git"
+    "url": "git+https://github.com/coryjpiette/Employee-Tracker.git"
   },
   "author": "Cory Piette",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/coryjpiette/employee-tracker/issues"
+    "url": "https://github.com/coryjpiette/Employee-Tracker/issues"
   },
-  "homepage": "https://github.com/coryjpiette/employee-tracker#readme",
+  "homepage": "https://github.com/coryjpiette/Employee-Tracker#readme",
   "dependencies": {
     "console.table": "^0.10.0",
     "dotenv": "^10.0.0",
