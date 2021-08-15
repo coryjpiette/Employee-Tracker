@@ -26,7 +26,7 @@ function initPrompt() {
         {
             type: "list",
 
-            message: "What would you like to do?",
+            message: "Please select an option.",
             name: "choice",
             choices: [
                 "View Departments",
@@ -38,7 +38,6 @@ function initPrompt() {
                 "Add Department"
             ]
         }
-
 }
 
 ]).then(function (data) {
@@ -89,13 +88,6 @@ function viewEmployees() {
     });
 }
 
-function viewEmployees() {
-    db.query('SELECT * FROM employee', function (err, results) {
-        console.table(results);
-        initPrompt()
-    });
-}
-
 
 function addEmployee() {
 
@@ -123,3 +115,32 @@ function addEmployee() {
             choices: selectManager()
         }
     ])
+
+    .then(function (data)
+    {
+      var roleId = selectRole().indexOf(data.role) + 1
+      var managerId = selectManager().indexOf(data.choice) + 1
+
+      db.query('INSERT INTO employee SET ?',
+        {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          manager_id: managerId,
+          role_id: roleId
+        },function (err)
+      {
+        console.table(data)
+        initPrompt()
+      })
+    })
+}
+
+// gnerating array for roles
+function selectRole()
+{
+  db.query('SELECT title FROM role',function (err,res)
+  {
+    for (var i = 0; i < res.length; i++) {
+      allRoles.push(res[i].title)
+    }
+  })
