@@ -7,7 +7,7 @@ const allManagers = []
 const allRoles = []
 
 
-// Database connect
+// Database connection
 const db = mysql.createConnection(
   {
     host: 'localhost',
@@ -40,4 +40,32 @@ function initPrompt()
       ]
     }
 
+}
+
+]).then(function (data)
+{
+  switch (data.choice) {
+    case "View Departments":
+      viewDepartments()
+      break;
+    case "View Roles":
+      viewRoles()
+      break;
+    case "View Employees":
+      viewEmployees()
+      break;
+    case "Update Employee Information":
+      updateEmployee()
+      break;
+    case "Add Employee":
+      addEmployee()
+      break;
+    case "Add Role":
+      addRole()
+      break;
+    case "Add Department":
+      addDepartment()
+      break;
+  }
+})
 }
