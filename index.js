@@ -97,34 +97,29 @@ function viewEmployees() {
 }
 
 
-function addEmployee()
-{
+function addEmployee() {
 
-  inquirer.prompt([
-    {
-      name: "first_name",
-      type: "input",
-      message: "New Employee First Name: "
-
-    },
-    {
-
-        name: "last_name",
-      type: "input",
-      message: "New Employee Last Name: "
-    },
-    {
-
-      name: "role",
-      type: "list",
-      message: "What is their role?",
-      choices: selectRole()
-    },
-    {
-
-      name: "manager",
-      type: "list",
-         message: "Who is their manager?",
-      choices: selectManager()
-    }
-  ])
+    inquirer.prompt([
+        {
+            name: "first_name",
+            type: "input",
+            message: "New Employee First Name: "
+        },
+        {
+            name: "last_name",
+            type: "input",
+            message: "New Employee Last Name: "
+        },
+        {
+            name: "role",
+            type: "list",
+            message: "What is their role?",
+            choices: selectRole()
+        },
+        {
+            name: "manager",
+            type: "list",
+            message: "Who is their manager?",
+            choices: selectManager()
+        }
+    ])
