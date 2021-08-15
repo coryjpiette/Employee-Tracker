@@ -219,3 +219,51 @@ function addRole()
     })
   })
 }
+
+
+function updateEmployee()
+{
+  db.query('SELECT * FROM employee JOIN role ON employee.role_id = role.id;',function (err,res)
+  {
+    inquirer.prompt([
+      {
+        type: "list",
+        name: "updateId",
+        message: "Please select the employee to update: ",
+        
+        
+        choices: function ()
+        {
+          var allEmployees = []
+          for (var i = 0; i < res.length; i++) {
+            allEmployees.push(res[i].last_name)
+          }
+          return allEmployees
+        },
+      },
+     
+     
+      {
+        name: "role",
+        type: 'list',
+        message: "Please enter employee's new role.",
+        choices: selectRole()
+      },
+    ]).then(function (data)
+    {
+      var roleId = selectRole().indexOf(data.role) + 1
+      db.query('UPDATE employee SET WHERE ?',
+        {
+          id: data.updateId,
+          role_id: data.roleId
+        },function (err) 
+      {
+        console.table(data)
+        initPrompt()
+      })
+    })
+  });
+}
+
+
+
