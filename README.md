@@ -11,7 +11,7 @@ This employee tracker allows you to view certain employee information including:
 
 -Employee ID
 
--Employee Salary
+-Employee salary
 
 You can also edit employee department and roles as well as add new employees by following the given prompts.
 
