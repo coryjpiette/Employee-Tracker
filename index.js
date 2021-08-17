@@ -6,7 +6,7 @@ const table = require('console.table');
 const allRoles = []
 const allManagers = []
 
-// Connect to database
+Databse connection
 const db = mysql.createConnection(
   {
     host: 'localhost',
@@ -18,7 +18,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the employee_tracker_db database.`)
 
 );
-// ! Working
+
 function initPrompt()
 {
   inquirer.prompt([
@@ -37,6 +37,7 @@ function initPrompt()
       ]
     }
   ]).then(function (data)
+  
   {
     switch (data.choice) {
       case "View All Departments":
@@ -54,7 +55,7 @@ function initPrompt()
       case "Add Employee":
         addEmployee()
         break;
-      case "Add Role":
+         case "Add Role":
         addRole()
         break;
       case "Add Department":
@@ -63,7 +64,7 @@ function initPrompt()
     }
   })
 }
-// ! Working
+
 function viewDepartments()
 {
   db.query('SELECT * FROM department',function (err,results)
@@ -72,7 +73,7 @@ function viewDepartments()
     initPrompt()
   });
 }
-// ! Working
+
 function viewRoles()
 {
   db.query('SELECT * FROM role',function (err,results)
@@ -81,16 +82,16 @@ function viewRoles()
     initPrompt()
   });
 }
-// ! Working
+
 function viewEmployees()
 {
   db.query('SELECT * FROM employee',function (err,results)
   {
-    console.table(results);
+       console.table(results);
     initPrompt()
   });
 }
-// ! Working
+
 function addEmployee()
 {
   inquirer.prompt([
@@ -107,7 +108,7 @@ function addEmployee()
     },
     {
       name: "role",
-      type: "list",
+        type: "list",
       message: "What is their role?",
       choices: selectRole()
     },
@@ -136,8 +137,8 @@ function addEmployee()
       })
     })
 }
-// ! Working
-// make array of all roles
+
+// generating role arrays
 function selectRole()
 {
   db.query('SELECT title FROM role',function (err,res)
@@ -148,8 +149,8 @@ function selectRole()
   })
   return allRoles;
 }
-// ! Working
-// making array of all managers
+
+// generating manager array
 function selectManager()
 {
   db.query('SELECT first_name, last_name FROM employee WHERE manager_id IS NULL',function (err,res)
@@ -259,6 +260,8 @@ function updateEmployee()
     })
   });
 }
+
+
 
 
 
