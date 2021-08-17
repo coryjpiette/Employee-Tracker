@@ -6,7 +6,7 @@ const table = require('console.table');
 const allRoles = []
 const allManagers = []
 
-Databse connection
+//Databse connection
 const db = mysql.createConnection(
   {
     host: 'localhost',
