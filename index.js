@@ -30,10 +30,16 @@ function initPrompt()
         "View All Departments",
         "View All Roles",
         "View All Employees",
-        "Update Employee",
+        new inquirer.Separator(), 
         "Add Employee",
         "Add Role",
-        "Add Department"
+        "Add Department",
+        new inquirer.Separator(), 
+        "Update Employee",
+        new inquirer.Separator(), 
+        "Exit",
+        new inquirer.Separator(), 
+        new inquirer.Separator(), 
       ]
     }
   ]).then(function (data)
@@ -61,9 +67,14 @@ function initPrompt()
       case "Add Department":
         addDepartment()
         break;
-    }
+        case "Exit":
+    exit()
+      }
+
   })
 }
+
+
 
 function viewDepartments()
 {
