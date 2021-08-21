@@ -79,7 +79,7 @@ function exit () {
   process.exit();
 }
 
-// Query to show all departments
+// Query for ALL departments
 function viewDepartments () {
   db.query('SELECT * FROM department', function (err, results) {
     if (err) throw err;
@@ -94,6 +94,27 @@ function viewDepartments () {
 
   ---MAIN MENU---
   `)
+
+  // Query for ALL roles
+function viewRoles () {
+  db.query('SELECT department.name AS Department, role.title AS Role, role.salary AS Salary FROM role JOIN department ON role.department_id = department.id;', function (err, results) {
+    if (err) throw err;
+    console.log(`
+  
+  
+  ------------ROLES---------------
+  `)
+
+  console.table(results);
+  console.log(`
+
+
+----------END ROLES-------------
+  ---MAIN MENU---
+  `)
+    initPrompt()
+  });
+}
 
 function viewDepartments()
 {
