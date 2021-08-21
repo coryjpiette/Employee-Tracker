@@ -131,8 +131,11 @@ function viewEmployees()
   ----------END EMPLOYEES-------------
   ---MAIN MENU---
   `)
+  initPrompt()
+});
+}
 
-
+// Run if employee is added
 function addEmployee()
 {
   inquirer.prompt([
@@ -171,15 +174,15 @@ function addEmployee()
           last_name: data.last_name,
           manager_id: managerId,
           role_id: roleId
-        },function (err)
+        },function (err, res)
       {
-        console.table(data)
         initPrompt()
-      })
-    })
+      },
+    )
+})
 }
 
-// generating role arrays
+//roles array
 function selectRole()
 {
   db.query('SELECT title FROM role',function (err,res)
@@ -194,15 +197,16 @@ function selectRole()
 // generating manager array
 function selectManager()
 {
-  db.query('SELECT first_name, last_name FROM employee WHERE manager_id IS NULL',function (err,res)
+  db.query('SELECT * FROM employee WHERE manager_id IS NULL',function (err,res)
   {
     for (var i = 0; i < res.length; i++) {
-      allManagers.push(res[i].first_name)
+      allManagers.push(`${res[i].id} - ${res[i].first_name} ${res[i].last_name}`)
     }
   })
+  
   return allManagers;
 }
-
+//prompting for new department
 function addDepartment()
 {
   {
@@ -222,18 +226,27 @@ function addDepartment()
             name: data.department,
           },function (err)
         {
+          onsole.log(`
+  ADDED to database
+  
+  ---MAIN MENU---
+  `)
           console.table(data)
           initPrompt()
         })
       })
   }
 }
-
+//Prompt for new role
 function addRole()
 {
-  db.query('SELECT role.title AS selectedTitle, role.salary AS selectedSalary FROM role',function (err,res)
-  {
-    inquirer.prompt([
+  db.query('SELECT id, name FROM department', function (err, depoQueryResult) {
+    if (err) throw err;
+    var depolist=depoQueryResult.map(function (department) {
+      return department.name
+    });
+
+    const roleQuestions=[
       {
         name: "selectedTitle",
         type: "input",
@@ -244,16 +257,45 @@ function addRole()
         type: "input",
         message: "What is the salary of this role?"
       }
-    ]).then(function (res)
-    {
+      {
+        name: "selectedDepo",
+        type: "list",
+        message: "Which department does this role belong to?",
+        choices: depolist
+      }
+    ]
+
+    if (depoQueryResult.length===0) {
+      console.error('Please enter department.')
+      return addRole();
+    }
+
+    inquirer.prompt(roleQuestions).then(function (roleAnswers) {
+      var departmentId;
+      for (var i=0; i<depoQueryResult.length; i++) {
+        if (roleAnswers.selectedDepo===depoQueryResult[i].name) {
+          departmentId=depoQueryResult[i].id
+          break
+        }
+      }
+    
       db.query("INSERT INTO role SET ?",
         {
-          title: res.selectedTitle,
-          salary: res.selectedSalary,
+          title: roleAnswers.selectedTitle,
+          salary: roleAnswers.selectedSalary,
+          department_id: departmentId,
         },
-        function (err)
+        function (err, data) {
+          if (err) throw err;
+          // console.table(data)
+          console.info(`
+          
+          Role added successfully
+          
+          ---MAIN MENU---
+          `)
         {
-          console.table(res)
+      
           initPrompt()
         }
       )
