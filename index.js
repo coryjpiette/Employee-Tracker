@@ -74,7 +74,26 @@ function initPrompt()
   })
 }
 
+function exit () {
+  console.log("Thanks for using the Employee Tracker. Goodbye!")
+  process.exit();
+}
 
+// Query to show all departments
+function viewDepartments () {
+  db.query('SELECT * FROM department', function (err, results) {
+    if (err) throw err;
+    console.log(`
+  
+    --------DEPARTMENTS---------------
+    `)
+
+    console.table(results);
+    console.log(`
+  -------END DEPARTMENTS---------
+
+  ---MAIN MENU---
+  `)
 
 function viewDepartments()
 {
